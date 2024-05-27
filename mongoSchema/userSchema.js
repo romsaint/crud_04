@@ -53,8 +53,15 @@ const userSchema = new mongoose.Schema({
 
     friends: [
         {
-            user_id: mongoose.Schema.Types.ObjectId,
-            date_friends_start: Date.now()
+            user_id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Users",
+                required: true
+            },
+            date_friends_start: {
+                type: Date,
+                default: Date.now()
+            },
         }
     ]
 });
