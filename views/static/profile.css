@@ -50,7 +50,6 @@
     margin-top: 1.5rem;
     color: #212121;
     margin-bottom: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 .more-detailed:hover{
     background-color: rgb(192, 192, 192);
@@ -59,7 +58,6 @@
     padding: 10px;
     width: 25%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-height: 433px;
     overflow: auto;
 }
 .inner__center-sector, .under-center{
@@ -70,7 +68,6 @@
 }
 .under__all-users{
     flex-basis: 22%;
-    max-height: 433px;
 }
 .inner__center-sector{
     background: rgb(247, 247, 247);
