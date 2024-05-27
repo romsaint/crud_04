@@ -49,14 +49,7 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(), // Corrected to use the function, not its return value
         immutable: true
-    },
-
-    friends: [
-        {
-            user_id: mongoose.Schema.Types.ObjectId,
-            date_friends_start: Date.now()
-        }
-    ]
+    }
 });
 
 
