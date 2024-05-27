@@ -49,11 +49,7 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(), // Corrected to use the function, not its return value
         immutable: true
-<<<<<<< HEAD
-    }
-=======
     },
-
     friends: [
         {
             user_id: {
@@ -67,7 +63,6 @@ const userSchema = new mongoose.Schema({
             },
         }
     ]
->>>>>>> friends
 });
 
 
