@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="static/reg.css">
+    <title>Registration</title>
+</head>
+<body>
+    <div class="container">
+        <div class="wrap__header">
+            <%-include('./partials/header')%>
+        </div>
+        <div class="wrap__main">
+            <div class="main">
+                <div class="container-svg-load">
+                    
+                </div>
+                <div class="wrap__alert">
+                    
+                </div>
+                
+                <center>
+                    <div class="wrap__form-reg">
+                        <div class="form">
+                            <form action="/reg" method="post" class="form-reg" enctype="multipart/form-data">
+                                <div class="text-form">
+                                    <center><h4>Registration</h4></center>
+                                </div>
+                                <div class="body">
+                                    <div class="inputs">
+                                        <input type="text" placeholder="Name" name="name" class="name">
+                                        <input type="password" placeholder="Password" name="password" class="password">
+                                        <input type="email" placeholder="Email" name="email" class="email">
+                                    </div>
+                                </div>
+                                <div class="wrap__avatar">
+                                    <label class="input-file">
+                                        <span class="input-file-text" type="text"></span>
+                                        <input type="file" name="avatar" class="avatar">        
+                                        <span class="input-file-btn">Avatar</span>
+                                    </label>
+                                </div>
+                                <div class="additional-info">
+                                    <div class="wrap__remember">
+                                        <input type="checkbox" name="remember" value="1" id="remember">
+                                        <label for="remember">Remember me</label>
+                                    </div>
+                                    <div class="wrap__have-acc">
+                                        <a href="/login" class="have-acc">Already have account?</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="button">
+                                    <button type="submit" class="create-btn">CREATE</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="wrap__email-confirm-form">
+                            <div class="form-email-confirm">
+                                <form action="/verify-email" method="post" class="verify-email">
+                                    <div id="verificationForm">
+                                        <input type="text" class="verification-input" name="inputVerification1" maxlength="1">
+                                        <input type="text" class="verification-input" name="inputVerification2" maxlength="1">
+                                        <input type="text" class="verification-input" name="inputVerification3" maxlength="1">
+                                        <input type="text" class="verification-input" name="inputVerification4" maxlength="1">
+                                    </div> 
+                                    <div class="button">
+                                        <button type="submit" class="email-verification-btn">Confirm</button>
+                                    </div>                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.wrap__email-confirm-form').hide()
+        $('.wrap__email-confirm-form').css({'max-width': `${$('.form').width()}px`})
+        
+
+        const inputs = document.querySelectorAll('.verification-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+            if (e.target.value && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' || e.key === 'Delete') {
+                  e.preventDefault();
+                  if (index > -1) {
+                    if(index === inputs.length - 1){
+                        inputs[inputs.length - 1].value = null
+                    }
+
+                    inputs[index].value = null
+
+                    inputs[index - 1].focus();
+                  }
+                }
+            });
+        })
+
+        // Обработчик отправки формы
+        document.getElementById('verificationForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const verificationCode = inputs.map(input => input.value).join('');
+            // Здесь вы можете отправить verificationCode на сервер для проверки
+        });
+
+        $('.verify-email').submit(e => {
+            e.preventDefault()
+            $.ajax({
+                url: "/verify-email",
+                method: "post",
+                headers: {
+                    'Authorization': `Bearer ${localStorage.token}`
+                },
+                data: $('.verify-email').serialize(),
+                success: res => {
+                    $('.alert').remove()
+                    $('.wrap__alert').append(`
+                        <center>
+                            <div class="alert" style="box-shadow: 8px 10px 0px ${res.color}">
+                                <div class="second-message">
+                                    <h5>${res.secondMessage}</h5>
+                                </div>
+                                <div class="message">
+                                    <h6>${res.message}</h6>
+                                </div>
+                            </div>
+                        </center>
+                    `)
+                }
+            })
+        })
+        //                                //
+        console.log(localStorage)
+        $('.form-reg').on('submit', function(e) {
+
+            $('.container-svg-load').append(`
+                <div class="wrap__svg-load-arrow">
+                    <svg height="200px" width="200px" class="svg-load-arrow" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 14.155 14.155" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path style="fill:#3b3b3b;" d="M12.083,1.887c-0.795-0.794-1.73-1.359-2.727-1.697v2.135c0.48,0.239,0.935,0.55,1.334,0.95 c1.993,1.994,1.993,5.236,0,7.229c-1.993,1.99-5.233,1.99-7.229,0c-1.991-1.995-1.991-5.235,0-7.229 C3.466,3.269,3.482,3.259,3.489,3.25h0.002l1.181,1.179L4.665,0.685L0.923,0.68l1.176,1.176C2.092,1.868,2.081,1.88,2.072,1.887 c-2.763,2.762-2.763,7.243,0,10.005c2.767,2.765,7.245,2.765,10.011,0C14.844,9.13,14.847,4.649,12.083,1.887z"></path> </g> </g></svg>
+                </div>
+            `)
+
+            e.preventDefault();
+
+            const form = $('.form-reg').get(0)
+            let formData = new FormData(form);
+
+            $.ajax({
+                url: form.action,
+                type: form.method,
+                data: formData,
+                processData: false, // Указываем jQuery не обрабатывать данные
+                contentType: false, // Указываем jQuery не устанавливать тип содержимого
+                success: function(res) {
+                    
+                    if(res.token) {
+                        console.log('res.token')
+                        localStorage.setItem('token', res.token);
+                    }
+                    $('.alert').remove()
+                    $('.container-svg-load').remove()
+                    
+                    $('.wrap__alert').css({'margin-bottom': '0'})
+                    
+                    $('.wrap__alert').append(`
+                        <center>
+                            <div class="alert" style="box-shadow: 8px 10px 0px ${res.color}">
+                                <div class="second-message">
+                                    <h5>${res.secondMessage}</h5>
+                                </div>
+                                <div class="message">
+                                    <h6>${res.message}</h6>
+                                </div>
+                            </div>
+                        </center>
+                    `)
+                    if(!res.email || res.email === undefined || res.email === 'undefined' || res.email === ''){
+
+                    }else{
+                        if(res.color !== 'rgb(234, 91, 91);'){
+                            $('.form').hide()
+                            $('.wrap__email-confirm-form').show()
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(error, xhr)
+                }
+            });
+        });
+        $('.input-file input[type=file]').on('change', function(){
+            let file = this.files[0];
+            $(this).closest('.input-file').find('.input-file-text').html(file.name);
+        });
+    </script>
+</body>
+</html>

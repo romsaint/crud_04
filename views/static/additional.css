@@ -1,0 +1,88 @@
+*{
+    box-sizing: border-box;
+}
+img{
+    width: 450px;
+}
+
+.product-cards{
+    padding: 30px;
+}
+.my_card{
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-card-btn{
+    width: 100%;
+    padding: 6px;
+    background-color: white;
+    border: 1px solid #434343;
+    transition: 0.15s ease-in-out;
+    color: #212121;
+    text-decoration: none;
+}
+.about-card-btn:hover{
+    background-color: #434343;
+    border: 1px solid white;
+    color: white
+}
+.button{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.body{
+    text-align: justify;
+}
+.right-sector{
+    overflow: auto;
+    width: 100%;
+    padding: 15px;
+}
+.right-sector::-webkit-scrollbar {
+    background-color: #f5f5f5;
+}
+
+.right-sector::-webkit-scrollbar-thumb {
+    background-color: #4b4b4b;
+}
+
+.right-sector::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(91, 91, 91);
+}
+
+.user-sector{
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+.user{
+    display: flex;
+    justify-content: space-around;
+}
+.avatar{
+    max-width: 100px;
+    position: relative;
+    top: -20px;
+    left: 120px;
+}
+.a__user{
+    text-decoration: none;
+    color: #4b4b4b;
+}
+.a__user:hover{
+    color: #2b2b2b;
+}
+
+
+@media screen and (max-width: 767.2px){
+    img{
+        width: 230px;
+    }
+    .avatar{
+        top: -13px;
+        left: 70px;
+    }
+}

@@ -1,0 +1,35 @@
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+
+/* Секция жалоб */
+.complaints-section {
+    margin: 50px 0;
+}
+
+.complaints-section h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Диаграмма */
+#complaintsChart {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+/* Футер */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 30px 0;
+}
+
+footer p {
+    margin: 0;
+}

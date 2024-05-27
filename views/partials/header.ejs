@@ -1,0 +1,125 @@
+<style>
+    .button {
+        margin-top: auto;
+    }
+    .nav-link, .nav-link:not(.profile):focus{
+        color: rgb(65, 65, 65);
+        font-size: large;
+    }
+    .nav-link:hover{
+        color: black;
+    }
+    .nav-bar{
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #434343;
+    }
+    .nav-svg{
+        width: 75px;
+    }
+    .nav{
+        align-items: center;
+    }
+    .profile{
+        font-size: 25px;
+    }
+    .logout-btn{
+        width: 100%;
+        border: 1px solid gray;
+        background-color: #ffffff;
+        margin-top: 0.4rem;
+        margin-bottom: 0.4rem;
+        transition: 0.15s ease-in-out;
+    }
+    .logout-btn:hover{
+        background-color: #ffa8a8;
+    }
+
+    .second-message__logout{
+        display: flex;
+        justify-content: space-between;
+    }
+    .alert__logout{
+        padding: 8px;
+        max-width: 500px;
+        border-radius: 0;
+    }
+    .close-2__logout{
+        cursor: pointer;
+    }
+    
+</style>
+<div class="header">
+    <div class="nav-bar">
+        <div class="wrap__nav-svg">
+            <svg viewBox="0 0 25 25" class="nav-svg" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M20 5H5V20H20V5ZM12.5254 16.1572C12.5254 17.4189 11.7742 18.1536 10.4792 18.1536C9.24243 18.1536 8.49121 17.4189 8.45801 16.2942V16.261H9.67407V16.2859C9.69897 16.7466 9.9729 17.0703 10.4626 17.0703C10.9939 17.0703 11.272 16.7507 11.272 16.1489V12.011H12.5254V16.1572ZM18.2893 16.2153C18.2893 17.4023 17.3679 18.1536 15.8738 18.1536C14.4419 18.1536 13.5371 17.4688 13.4666 16.4062L13.4624 16.3398H14.6702L14.6743 16.3813C14.72 16.8296 15.2056 17.1326 15.907 17.1326C16.5752 17.1326 17.0359 16.813 17.0359 16.3523V16.3481C17.0359 15.9539 16.7412 15.7339 15.9983 15.5803L15.3674 15.4517C14.1223 15.1985 13.5869 14.6174 13.5869 13.7085V13.7043C13.5869 12.592 14.5415 11.8574 15.8696 11.8574C17.2683 11.8574 18.0901 12.5962 18.1689 13.5964L18.1731 13.6504H16.9944L16.9861 13.6006C16.9155 13.1731 16.5005 12.8743 15.8696 12.8743C15.2512 12.8784 14.8403 13.1606 14.8403 13.6089V13.613C14.8403 14.0032 15.1309 14.2356 15.8364 14.3809L16.4714 14.5095C17.7373 14.771 18.2893 15.2773 18.2893 16.2112V16.2153Z" fill="#121923"></path> </g></svg>
+        </div>
+        <ul class="nav">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/create-post" class="nav-link">Creat post</a>
+            <a href="/reg" class="nav-link">Registration</a>
+            <a href="/login" class="nav-link">Login</a>
+            <a href="/logout" class="nav-link logout">Logout</a>
+            <a href="/profile" class="nav-link profile">Profile</a>
+        </ul>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $(document).ready(() => {
+        $('.logout').click(event => {
+            event.preventDefault()
+            $('.alert__logout').remove()
+            $('.alert').remove()
+            $('.wrap__alert').append(`
+                <center>
+                    <div class="alert__logout" style="box-shadow: 8px 10px 0px rgb(234, 91, 91);">
+                        <div class="second-message__logout">
+                            <h6 class="second__logout">Are you sure you want to get out of the account?</h6>
+                            <div class="wrap__close__logout">
+                                <i class="bi bi-x-lg close-2__logout"></i>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <form action="/logout" method="post" class="form-logout">
+                                <button type="submit" class="logout-btn">Sure</button>
+                            </form>
+                        </div>
+                    </div>
+                </center>
+            `)
+            $('.close-2__logout').click(() => {
+                $('.alert__logout').hide()
+            })
+            $('.form-logout').submit(event => {
+                event.preventDefault()
+                $.ajax({
+                    url: '/logout',
+                    method: 'post',
+                    success: res => {
+                        localStorage.clear()
+                        $('.alert').remove()
+                        $('.alert__logout').remove()
+                            $('.wrap__alert').append(`
+                                <center>
+                                    <div class="alert" style="box-shadow: 8px 10px 0px ${res.color}">
+                                        <div class="second-message">
+                                            <h5 class="second">${res.secondMessage}</h5>
+                                            <div class="wrap__close">
+                                                <i class="bi bi-x-lg close-2"></i>
+                                            </div>
+                                        </div>
+                                        <div class="message">
+                                            <h6>${res.message}</h6>
+                                        </div>
+                                    </div>
+                                </center>
+                        `)
+                    }
+                })
+            })
+        })
+
+    })
+</script>

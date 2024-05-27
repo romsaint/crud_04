@@ -1,0 +1,224 @@
+*{
+    box-sizing: border-box;
+}
+img{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Максимально возможное разрешение изображения, но не больше, чем ширина и высота родительского элемента */
+    width: 100%;
+    height: 100%;
+    
+    object-fit: cover;
+}
+.image{
+    height: 215px;
+    width: 380px;
+}
+.product-cards{
+    padding: 30px;
+}
+.my_card{
+    display: flex;
+    gap: 20px;
+    margin-right: 20px;
+
+    flex-direction: row;
+    margin-top: 4rem;
+}
+
+.about-card-btn{
+    width: 100%;
+    padding: 6px;
+    background-color: white;
+    border: 1px solid #434343;
+    transition: 0.15s ease-in-out;
+    color: #212121;
+    text-decoration: none;
+}
+.about-card-btn:hover{
+    background-color: #434343;
+    border: 1px solid white;
+    color: white
+}
+.button{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.body{
+    max-height: 110px;
+    overflow: auto;
+    margin-top: 2rem;
+}
+
+.alert{
+    padding: 8px;
+    max-width: 500px;
+    border-radius: 0;
+}
+
+@media screen and (max-width: 991.2px) {
+    .body {
+        max-height: 150px;
+    }
+    img{
+        max-width: 300px;
+    }
+    .svg-like{
+        width: 30px;
+    }
+}
+
+.body::-webkit-scrollbar {
+    background-color: #f5f5f5;
+}
+
+.body::-webkit-scrollbar-thumb {
+    background-color: #4b4b4b;
+}
+
+.body::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(91, 91, 91);
+}
+.right-sector {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.user-image-container {
+    width: 80px;
+    background-size: cover; /* Это свойство масштабирует изображение, чтобы оно полностью заполнило контейнер */
+    background-position: center; /* Это свойство центрирует изображение внутри контейнера */
+}
+
+
+.my_card {
+    position: relative; /* Относительное позиционирование для абсолютно позиционированных элементов */
+    /* Добавьте другие стили, если необходимо */
+  }
+  
+.wrap__user-image {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+/* Добавьте стили для позиционирования изображения пользователя */
+}
+.user-image{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.username{
+    text-decoration: none;
+    color: #434343;
+    font-size: 23px;
+}
+.username:hover{
+    color: #212121;
+}
+
+.my_card {
+    position: relative; /* Это позволит абсолютно позиционировать дочерние элементы относительно .my_card */
+}
+
+.wrap__image {
+    position: relative; /* Это позволит абсолютно позиционировать дочерние элементы относительно .wrap__image */
+}
+
+.svg-like {
+    width: 50px;
+    position: absolute; /* Позиционирование иконки абсолютно */
+    top: 0; /* Прижать к верхнему краю */
+    right: 0; /* Прижать к правому краю */
+    transform: translate(40%, -20%); /* Сдвинуть иконку влево и вверх на половину своей ширины и высоты */
+}
+.a__svg-like{
+    display: contents;
+    cursor: pointer;
+}
+#svg-like-fill-liked{
+    fill: #888888
+}
+
+@media screen and (max-width: 991.2px) {
+    .svg-like{
+        width: 30px;
+    }
+    img{
+        width: 300px;
+    }
+}
+
+
+
+
+.wrap__main{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.main{
+    flex-basis: 77%;
+}
+.filter-form{
+    padding: 30px;
+    margin-top: 4rem;
+}
+.wrap__filter-form{
+    flex-basis: 23%;
+}
+.inner-form-filter{
+    background-color: #f5f5f5;
+    width: 100%;
+    max-height: 500px;
+    overflow: auto;
+}
+
+
+.inner-form-filter::-webkit-scrollbar {
+    background-color: #f5f5f5;
+}
+
+.inner-form-filter::-webkit-scrollbar-thumb {
+    background-color: #4b4b4b;
+}
+
+.inner-form-filter::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(91, 91, 91);
+}
+
+
+
+
+.wrap__upload {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .wrap__upload li a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    transition: 0.15s ease-in-out;
+    width: 100%;
+  }
+  .wrap__upload li {
+    display: flex;
+    width: 60%;
+  }
+
+  .wrap__upload li a:hover,
+  .wrap__upload li a.active {
+    background-color: #333;
+    color: #fff;
+  }

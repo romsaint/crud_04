@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Profile page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="static/profile.css">
+</head>
+<body>
+    <div class="container">
+        <div class="wrap__header">
+            <%-include('./partials/header')%>
+        </div>
+        <div class="wrap__main">
+            <div class="wrap__alert">
+                    
+            </div>
+            <div class="main">
+                <div class="left-sector">
+                    <div class="user-cards">
+                        <div class="text-cards">
+                            <center><h4 class="all-cards">All cards</h4></center>
+                        </div>
+                        
+                    </div>
+                </div>
+                    <div class="center-sector">
+                        <div class="inner__center-sector">
+                            <div class="profile">
+                                <div class="profile-inner">
+                                    <div class="left-part">
+                                        <div class="wrap__username">
+                                            <h4 class="username"></h4>
+                                        </div>
+                                        <div class="wrap__email">
+                                            <h4 class="email"></h4>
+                                        </div>
+                                    </div>
+                                    <div class="wrap__user-image">
+                                        <img class="user-image" src="" alt="Image">
+                                    </div>
+                                </div>
+                                <div class="wrap__date-register">
+                                    <li class="date-register"></li>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="under-center">
+                            <div class="statistics">
+                                <canvas id="myChart"></canvas>
+                                <form action="/complaint-diagram" method="get" class="complaint-diagram-form">
+                                    <div class="wrap__btn-more-complaint">
+                                        <button class="more-detailed">More detailed</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="under-center-sector-friends">
+                        <div class="inner-under-center-sector-friends">
+                            <h3>Friends</h3>
+                            <div id="friends-list">
+                                ...
+                                <!-- Здесь будут отображаться карточки друзей -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="under__all-users">
+                        <div class="inner-users">
+                            <div class="text__all-users">
+                                <center><h4>All users</h4></center>
+                            </div>
+                            <div class="users">
+
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </div>
+        </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    
+    <script>
+        $.ajax({
+            url: '/profile-data',
+            method: 'get',
+            headers: {
+                'Authorization': `Bearer ${localStorage.token}`
+            },
+            success: res => {
+                $('.alert').remove()
+                if(res.color === 'rgb(234, 91, 91);'){
+                    $('.main').remove()
+                    $('.wrap__alert').append(`
+                    <center>
+                        <div class="alert" style="box-shadow: 8px 10px 0px ${res.color}">
+                            <div class="second-message">
+                                <h5>${res.secondMessage}</h5>
+                            </div>
+                            <div class="message">
+                                <h6>${res.message}</h6>
+                            </div>
+                        </div>
+                    </center>
+                `)
+                }else{
+                    $('.username').text(res.user.name)
+                    $('.email').text(res.user.email)
+                    const date = new Date(res.user.date_register)
+                    $('.date-register').text(date.toLocaleDateString())
+
+                    if(res.user.avatar_url){
+                        $('.user-image').attr('src', `./userAvatarImage/${res.user.avatar_url}`)
+                    }else{
+                        $('.user-image').attr('src', `./defaultImage/user-xmark-alt-1-svgrepo-com.png`)
+                    }
+                    
+                    for(i of res.posts){
+                        const date = new Date(i.date_created)
+                        $('.user-cards').append(`
+                        <div class="mycard">
+                            <div class="wrap__title">
+                                <center><h5 class="title text-truncate">${i.title}</h5></center>
+                            </div>
+                            <div class="wrap__body">
+                                <div class="body text-truncate">
+                                        ${i.body}
+                                </div>
+                                <div class="wrap__date-created">
+                                    <li class="date-created">
+                                        ${date.toLocaleDateString()}
+                                    </li>
+                                </div>
+                            </div>
+                            <div class="wrap__more_detailed">
+                                <a href="/additional-info-post/${i._id}" class="about-card-btn" s>
+                                    More detailed
+                                </a>
+                            </div>
+                        </div>
+                        `)
+                    }
+                    for(i of res.users){
+                        $('.users').append(`
+                            <div class="user">
+                                <a href="/profile/${i._id}" class="a__user">${i.name}</a>
+                            </div>
+                        `)
+                    }
+                }
+                
+                    let ctx = document.getElementById('myChart').getContext('2d');
+                    let myChart = new Chart(ctx, {
+                    type: 'bar', // тип диаграммы
+                    data: {
+                        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], // метки по оси X
+                        datasets: [{
+                        label: 'Diagram of complaints',
+                        data: [
+                                    res.complaintsByDay.monday,
+                                    res.complaintsByDay.tuesday,
+                                    res.complaintsByDay.wednesday,
+                                    res.complaintsByDay.thursday,
+                                    res.complaintsByDay.friday,
+                                    res.complaintsByDay.saturday,
+                                    res.complaintsByDay.sunday
+                        ], // данные по оси Y
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 147, 201, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 147, 201, 1)'
+                        ],
+                        borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                        }
+                    }
+                    });
+                $(document).ready(() => {
+                    let centerH = $('.center-sector').height()
+
+                    $('.left-sector').css({'max-height': `${centerH}px`})
+                    $('.under__all-users').css({'max-height': `${centerH}px`})
+                })
+            }
+        })
+    </script>
+</body>
+</html>

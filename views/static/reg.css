@@ -1,0 +1,237 @@
+.create-btn{
+    width: 100%;
+    margin-top: 2rem;
+    border: 1px solid #6a6a6a;
+    outline: none;
+    padding: 7px;
+    color: white;
+    background-color: #393939;
+}
+.create-btn:active{
+	background-color: #333333;
+}
+.text-form{
+    margin-bottom: 1.5rem;
+}
+.wrap__alert{
+    margin-bottom: 3.5rem;
+}
+.alert{
+    padding: 8px;
+    max-width: 500px;
+    border-radius: 0;
+    
+}
+.form{
+    padding: 20px;
+    margin-top: 2rem;
+    max-width: 800px;
+}
+
+.email, .name, .password{
+    width: 100%;
+    border: 1px solid #787878;
+    margin-bottom: 1.5rem;
+    outline: none;
+    padding: 10px;
+    box-shadow: 6px 7px 0px rgb(29, 29, 29);
+    transition: 0.15s ease-in-out;
+}
+
+.password:hover, .name:hover, .email:hover{
+	background-color: #dfdfdf;
+}
+
+.input-file {
+	position: relative;
+	display: inline-block;
+}
+.input-file-text {
+	padding: 0 10px;
+	line-height: 40px;
+	text-align: left;
+	height: 40px;
+	display: block;
+	float: left;
+	box-sizing: border-box;
+	width: 100%;
+	border: 1px solid #ddd;
+}
+.input-file-btn {
+    position: relative;
+	display: inline-block;
+    border: 0;
+    outline: none;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+	font-size: 14px;
+	vertical-align: middle;
+	text-align: center;
+	background-color: #ffffff;
+	line-height: 22px;
+	height: 40px;
+    width: 30%;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	border: 1px solid #6a6a6a;
+	margin: 0;
+	transition: background-color 0.2s;
+}
+.input-file input[type=file] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+ 
+/* Focus */
+.input-file input[type=file]:focus + .input-file-btn {
+	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+ 
+/* Hover/active */
+.input-file:hover .input-file-btn {
+	background-color: #838383;
+}
+.input-file:active .input-file-btn {
+	background-color: #565656;
+}
+
+.additional-info{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+    justify-content: space-between;
+}
+.have-acc{
+    color: #515151;
+    text-decoration: none;
+    font-size: large;
+}
+.have-acc:hover{
+    color: #2a2a2a;
+}
+.wrap__remember{
+	display: flex;
+	flex-direction: row;
+}
+/* Скрываем стандартный checkbox */
+.wrap__remember input[type="checkbox"] {
+    display: none;
+}
+
+
+/* Создаем кастомный checkbox */
+.wrap__remember label {
+    position: relative;
+    display: inline-block;
+    padding-left: 25px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Создаем кастомный индикатор (иконку) для checkbox */
+.wrap__remember label::before {
+    content: "";
+    position: absolute;
+	margin-top: 3px;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border: 1px solid #6a6a6a;
+}
+
+/* Стилизуем индикатор, когда checkbox выбран (чекнут) */
+.wrap__remember input[type="checkbox"]:checked ~ label::before {
+    background-color: #393939;
+}
+
+/* Создаем индикатор checkmark */
+.wrap__remember label::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Отображаем индикатор checkmark, когда checkbox выбран */
+.wrap__remember input[type="checkbox"]:checked ~ label::after {
+    display: block;
+}
+
+/* Стилизуем индикатор checkmark */
+.wrap__remember label::after {
+    left: 7.3px;
+    top: 6.5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+/* Disabled */
+.input-file input[type=file]:disabled + .input-file-btn {
+	background-color: #eee;
+}
+.input-file{
+    display: flex;
+}
+
+
+
+.wrap__email-confirm-form{
+    max-width: 666px;
+}
+
+.verification-input {
+    width: 50px;
+    margin: 0 2px;
+    text-align: center;
+    height: 60px;
+    font-size: 22px;
+    border: 1px solid #787878;
+    margin-bottom: 1.5rem;
+    outline: none;
+    padding: 10px;
+    box-shadow: 6px 7px 0px rgb(57, 49, 49);
+}
+.email-verification-btn {width: 100%;
+    margin-top: 2rem;
+    border: 1px solid #6a6a6a;
+    outline: none;
+    padding: 7px;
+    color: white;
+    background-color: #393939;
+}
+.email-verification-btn:active{
+	background-color: #333333;
+}
+
+
+.wrap__svg-load-arrow{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+@keyframes arrowRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.svg-load-arrow {
+    position: absolute;
+    top: 5%;
+    left: 47%;
+    animation-name: arrowRotate;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    width: 100px;
+}
